@@ -16,7 +16,9 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        loadData();
+        if (catRepository.count() == 0) {
+            loadData();
+        }
     }
 
     private void loadData() {
