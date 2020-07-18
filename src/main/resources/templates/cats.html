@@ -8,7 +8,13 @@
 
     <h2>Cats</h2>
 
+    <th:block th:each="cat : ${cats}">
 
+        <p th:text="${cat.name}"></p>
+        <p th:text="${cat.age}"></p>
+        <p th:text="${cat.color}"></p>
+
+    </th:block>
 
 </body>
 </html>
