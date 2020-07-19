@@ -22,10 +22,10 @@ public class Bootstrap implements CommandLineRunner {
     }
 
     private void loadData() {
-        Cat murzik = new Cat();
-        murzik.setName("Murzik");
-        murzik.setAge(7);
-        murzik.setColor("white");
-        catRepository.save(murzik);
+        Cat dockerCat = new Cat();
+        dockerCat.setName("dockerCat");
+        dockerCat.setAge(7);
+        dockerCat.setColor("white");
+        catRepository.save(dockerCat);
     }
 }
