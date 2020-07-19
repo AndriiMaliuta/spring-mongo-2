@@ -16,5 +16,13 @@
 
     </th:block>
 
+    <form th:action="@{/create-cat}" th:object="${cat}" action="/create-cat" method="post">
+        <input th:field="*{name}" type="text" name="name" id="name">
+        <input th:field="*{age}" type="text" name="age" id="age">
+        <input th:field="*{color}" type="text" name="color" id="color">
+
+        <button type="submit" class="button is-primary">Submit</button>
+    </form>
+
 </body>
 </html>
