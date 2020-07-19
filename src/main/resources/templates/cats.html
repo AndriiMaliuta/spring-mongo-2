@@ -16,6 +16,9 @@
             margin: 6px;
             width: 150px;
         }
+        .cat-delete-btn {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -43,26 +46,35 @@
     const catAge = document.querySelector('#age');
     const catColor = document.querySelector('#color');
 
+
     function generateCats() {
         let cats = [];
         axios.get('/rest/api/v1/cats')
             .then(response => {
-                catsDiv.innerHTML = '';
-                cats = response.data;
-                cats.forEach(cat => {
-                    const catCard = document.createElement('div');
-                    catCard.innerHTML = `
+                    catsDiv.innerHTML = '';
+                    cats = response.data;
+                    cats.forEach(cat => {
+                        const catCard = document.createElement('div');
+                        catCard.innerHTML = `
                     <div>
+                        <button class="cat-delete-btn" id="cat-delete-btn-${cat.id}" data-id="${cat.id}">X</button>
                         <p>${cat.name}</p>
                         <p>${cat.age}</p>
                         <p>${cat.color}</p>
                     </div>
                     `;
-                    catCard.classList.add('cat-card');
-                    catsDiv.appendChild(catCard);
+                        catCard.classList.add('cat-card');
+                        catsDiv.appendChild(catCard);
+                        const deleteBtn = document.querySelector(`#cat-delete-btn-${cat.id}`);
+                        deleteBtn.addEventListener('click', (e) => {
+                            const catId = deleteBtn.dataset.id;
+                            axios.delete(`/rest/api/v1/cats/${catId}`).then(response => console.log(response.data));
+                            generateCats();
+                        })
+                    })
                 }
-            )}
-        )
+            );
+
     }
 
     catsBtn.addEventListener('click', (e) => {
@@ -70,7 +82,7 @@
         const age = catAge.value;
         const color = catColor.value;
 
-        if (name !== null) {
+        if (name !== '' && age !== '' && color !== '') {
             axios.post('/rest/api/v1/cats', {
                 name, age, color
             }).then(response => {

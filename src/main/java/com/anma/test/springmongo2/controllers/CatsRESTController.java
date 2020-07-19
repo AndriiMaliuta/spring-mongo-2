@@ -3,6 +3,8 @@ package com.anma.test.springmongo2.controllers;
 import com.anma.test.springmongo2.Cat;
 import com.anma.test.springmongo2.CatRepository;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +43,12 @@ public class CatsRESTController {
         catRepository.save(newCat);
 
         return newCat;
+    }
+
+    @DeleteMapping("/{catId}")
+    public ResponseEntity<Void> deleteCat (@PathVariable String catId) {
+        catRepository.deleteById(catId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

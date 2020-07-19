@@ -2,11 +2,11 @@ package com.anma.test.springmongo2.controllers;
 
 import com.anma.test.springmongo2.Cat;
 import com.anma.test.springmongo2.CatRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CatsController {
@@ -26,7 +26,6 @@ public class CatsController {
         return "cats";
     }
 
-
     @PostMapping("/create-cat")
     public String creatCat(@ModelAttribute Cat catModel, Model model) {
 
@@ -39,5 +38,7 @@ public class CatsController {
 
         return "redirect:/cats";
     }
+
+
 
 }
