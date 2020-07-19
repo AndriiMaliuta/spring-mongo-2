@@ -56,13 +56,14 @@
                     cats.forEach(cat => {
                         const catCard = document.createElement('div');
                         catCard.innerHTML = `
-                    <div>
-                        <button class="cat-delete-btn" id="cat-delete-btn-${cat.id}" data-id="${cat.id}">X</button>
-                        <p>${cat.name}</p>
-                        <p>${cat.age}</p>
-                        <p>${cat.color}</p>
-                    </div>
-                    `;
+                            <div>
+                                <button class="cat-delete-btn" id="cat-delete-btn-${cat.id}" data-id="${cat.id}">X</button>
+                                <p id="${cat.id}" hidden></p>
+                                <p>${cat.name}</p>
+                                <p>${cat.age}</p>
+                                <p>${cat.color}</p>
+                            </div>
+                            `;
                         catCard.classList.add('cat-card');
                         catsDiv.appendChild(catCard);
                         const deleteBtn = document.querySelector(`#cat-delete-btn-${cat.id}`);
