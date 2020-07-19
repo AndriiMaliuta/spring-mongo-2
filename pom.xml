@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.anma.test</groupId>
-    <artifactId>spring-mongo-2</artifactId>
+    <artifactId>vultr-cats</artifactId>
     <version>0.0.1</version>
-    <name>spring-mongo-2</name>
+    <name>vultr-cats</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
