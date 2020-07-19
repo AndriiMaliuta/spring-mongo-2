@@ -3,10 +3,7 @@ package com.anma.test.springmongo2.controllers;
 import com.anma.test.springmongo2.Cat;
 import com.anma.test.springmongo2.CatRepository;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,8 +26,21 @@ public class CatsRESTController {
         return catRepository.findAll();
     }
 
-    @GetMapping("/{catId}")
-    public Cat findCatById(@PathVariable String catId) {
-        return catRepository.findById(catId).get();
+    @GetMapping("/{catName}")
+    public List<Cat> findCatById(@PathVariable String catName) {
+        return catRepository.findAllByName(catName);
     }
+
+    @PostMapping
+    public Cat createCat( @RequestBody Cat catModel) {
+        Cat newCat = new Cat();
+        newCat.setName(catModel.getName());
+        newCat.setColor(catModel.getColor());
+        newCat.setAge(catModel.getAge());
+
+        catRepository.save(newCat);
+
+        return newCat;
+    }
+
 }

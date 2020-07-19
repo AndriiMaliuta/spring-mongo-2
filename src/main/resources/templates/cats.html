@@ -3,26 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>Cats</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <style>
+        .cats-div {
+            display: flex;
+        }
+
+        .cat-card {
+            border: 1px solid deepskyblue;
+            border-radius: 6px;
+            padding: 6px;
+            margin: 6px;
+            width: 150px;
+        }
+    </style>
 </head>
 <body>
 
-    <h2>Cats</h2>
+<h2>Cats</h2>
 
-    <th:block th:each="cat : ${cats}">
+<div>
+    <input type="text" name="name" id="name" placeholder="Cat Name"><br>
+    <input type="text" name="age" id="age" placeholder="Cat Age"><br>
+    <input type="text" name="color" id="color" placeholder="Cat Color"><br>
 
-        <p th:text="${cat.name}"></p>
-        <p th:text="${cat.age}"></p>
-        <p th:text="${cat.color}"></p>
+    <button id="cats-button" type="submit" class="button">Submit</button>
+</div>
 
-    </th:block>
+<div class="cats-div"></div>
 
-    <form th:action="@{/create-cat}" th:object="${cat}" action="/create-cat" method="post">
-        <input th:field="*{name}" type="text" name="name" id="name">
-        <input th:field="*{age}" type="text" name="age" id="age">
-        <input th:field="*{color}" type="text" name="color" id="color">
 
-        <button type="submit" class="button is-primary">Submit</button>
-    </form>
+<script th:inline="javascript">
+
+    generateCats();
+
+    const catsDiv = document.querySelector('.cats-div');
+    const catsBtn = document.querySelector('#cats-button');
+    const catName = document.querySelector('#age');
+    const catAge = document.querySelector('#color');
+    const catColor = document.querySelector('#color');
+
+    function generateCats() {
+        let cats = [];
+        axios.get('/rest/api/v1/cats')
+            .then(response => {
+                catsDiv.innerHTML = '';
+                cats = response.data;
+                cats.forEach(cat => {
+                    const catCard = document.createElement('div');
+                    catCard.innerHTML = `
+                    <div>
+                        <p>${cat.name}</p>
+                        <p>${cat.age}</p>
+                        <p>${cat.color}</p>
+                    </div>
+                    `;
+                    catCard.classList.add('cat-card');
+                    catsDiv.appendChild(catCard);
+                }
+            )}
+        )
+    }
+
+    catsBtn.addEventListener('click', (e) => {
+        const name = catName.value;
+        const age = catAge.value;
+        const color = catColor.value;
+
+        if (name !== null) {
+            axios.post('/rest/api/v1/cats', {
+                name, age, color
+            }).then(response => {
+                console.log(response.data);
+                generateCats();
+            })
+                .catch(error => console.log(error))
+        }
+
+    })
+
+
+</script>
+
+<!--    <th:block th:each="cat : ${cats}">-->
+
+<!--        <p th:text="${cat.name}"></p>-->
+<!--        <p th:text="${cat.age}"></p>-->
+<!--        <p th:text="${cat.color}"></p>-->
+
+<!--    </th:block>-->
+
+<!--    <form th:action="@{/create-cat}" th:object="${cat}" action="/create-cat" method="post">-->
+<!--        <input th:field="*{name}" type="text" name="name" id="name">-->
+<!--        <input th:field="*{age}" type="text" name="age" id="age">-->
+<!--        <input th:field="*{color}" type="text" name="color" id="color">-->
+
+<!--        <button type="submit" class="button is-primary">Submit</button>-->
+<!--    </form>-->
 
 </body>
 </html>

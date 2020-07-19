@@ -24,7 +24,7 @@ public class Bootstrap implements CommandLineRunner {
     private void loadData() {
         Cat dockerCat = new Cat();
         dockerCat.setName("dockerCat");
-        dockerCat.setAge(7);
+        dockerCat.setAge("7");
         dockerCat.setColor("white");
         catRepository.save(dockerCat);
     }

@@ -10,10 +10,10 @@ public class Cat {
     private String id;
 
     private String name;
-    private int age;
+    private String age;
     private String color;
 
-    public Cat(String id, String name, int age, String color) {
+    public Cat(String id, String name, String age, String color) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -39,11 +39,11 @@ public class Cat {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
