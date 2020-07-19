@@ -1,25 +1,41 @@
-version: '3'
+#version: '3'
+#services:
+#  mongo:
+#    image: mongo
+#    container_name: mongo
+#    restart: always
+#    ports:
+#      - 27018:27018
+#    network_mode: host
+#    volumes:
+#      - $HOME/mongo:/data/db
+#    healthcheck:
+#      test: "exit 0"
+#  vultr-cats:
+#    build: /
+#    image: vultr-cats
+#    depends_on:
+#      - mongo
+#    network_mode: "host"
+#    hostname: localhost
+#    restart: always
+#    ports:
+#      - 8082:8082
+#    healthcheck:
+#      test: "exit 0"
+
+
+version: "3"
 services:
   mongo:
     image: mongo
-    container_name: mongo
-    restart: always
+    container_name: "mongo"
     ports:
       - 27018:27018
-    network_mode: host
-    volumes:
-      - $HOME/mongo:/data/db
-    healthcheck:
-      test: "exit 0"
+    command: --smallfiles
   vultr-cats:
-    build: /
     image: vultr-cats
-    depends_on:
-      - mongo
-    network_mode: "host"
-    hostname: localhost
-    restart: always
     ports:
-      - 8082:8082
-    healthcheck:
-      test: "exit 0"
+      - 8081:8081
+    links:
+      - mongo
