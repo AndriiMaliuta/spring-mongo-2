@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/java-cats
+#      uri=mongodb://localhost:27018/java-cats-docker
+#      host: 127.0.0.1
+#      port: 27017
+#      authentication-database: admin
+#      username: <username specified on MONGO_INITDB_ROOT_USERNAME>
+#      password: <password specified on MONGO_INITDB_ROOT_PASSWORD>
+#      database: <the db you want to use>
